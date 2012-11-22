@@ -1,0 +1,589 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3school.com.cn" xmlns:tns="http://www.w3school.com.cn"
+	elementFormDefault="qualified">
+
+	<element name="ServicePlugin" type="tns:ServicePluginType" />
+	<element name="Service" type="tns:ServiceType" />
+	<element name="Parameter" type="tns:ParameterType" />
+
+	<element name="ActionTrans" type="tns:ActionTransType" />
+	<element name="Validator" type="tns:ValidatorType" />
+	<element name="Field" type="tns:FieldType" />
+
+	<element name="Return" type="tns:ReturnType" />
+	<element name="ReturnItem" type="tns:ReturnItemType" />
+
+	<element name="SetValue" type="tns:SetValueType" />
+
+	<element name="Log" type="tns:LogType" />
+	<element name="Out" type="tns:OutType" />
+	<element name="Call" type="tns:CallType" />
+
+	<element name="For" type="tns:ForType" />
+	<element name="If" type="tns:IfType" />
+	<element name="Elseif" type="tns:ElseIfType" />
+	<element name="Else" type="tns:ElseType" />
+
+	<element name="Try" type="tns:TryType" />
+	<element name="Catch" type="tns:CatchType" />
+	<element name="Finally" type="tns:FinallyType" />
+	<element name="Throw" type="tns:ThrowType" />
+
+	<element name="Insert" type="tns:SQLElementType" />
+	<element name="Update" type="tns:SQLElementType" />
+	<element name="Delete" type="tns:SQLElementType" />
+	<element name="SelectRecordSet" type="tns:SelectType" />
+	<element name="SelectFeild" type="tns:SelectType" />
+
+	<element name="SQLIf" type="tns:SQLIfType" />
+	<element name="SQLElse" type="tns:SQLElseType" />
+	<element name="SQLFor" type="tns:SQLForType" />
+
+	<element name="OutputSQL" type="string" />
+
+	<element name="CommitTrans"></element>
+	<element name="RollbackTrans"></element>
+
+	<element name="HttpClient" type="tns:HttpClientType"></element>
+	<element name="HadoopUtil" type="tns:HadoopUtilType"></element>
+
+	<element name="SetRequest" type="tns:SetServletType"></element>
+	<element name="SetSession" type="tns:SetServletType"></element>
+	<element name="SetApplication" type="tns:SetServletType"></element>
+
+	<element name="OutResponse" type="tns:OutResponseType"></element>
+
+	<element name="Bean" type="tns:BeanType"></element>
+	<element name="Invoke" type="tns:InvokeType"></element>
+
+	<element name="Property" type="tns:PropertyType"></element>
+	<element name="Constructor" type="tns:ConstructorType"></element>
+
+	<group name="IfElseIfGroup">
+		<sequence>
+			<element ref="tns:If"></element>
+			<element ref="tns:Elseif" maxOccurs="unbounded" minOccurs="0" />
+			<element ref="tns:Else" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</group>
+
+	<group name="TryCatchFinallyGroup">
+		<sequence>
+			<element ref="tns:Try" />
+			<element ref="tns:Catch" />
+			<element ref="tns:Finally" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</group>
+
+	<complexType name="ServicePluginType">
+		<sequence>
+			<element ref="tns:Service" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ServiceType">
+		<sequence>
+			<element ref="tns:Parameter" maxOccurs="unbounded" minOccurs="0" />
+			<element ref="tns:ActionTrans" maxOccurs="unbounded" minOccurs="0" />
+		</sequence>
+		<attribute name="Name" type="string" use="required" />
+		<attribute name="CacheGroupId" type="string" />
+		<attribute name="Description" type="string" />
+	</complexType>
+
+	<complexType name="ParameterType">
+		<attribute name="Name" type="string" />
+		<attribute name="Value" type="string" />
+	</complexType>
+
+	<complexType name="ActionTransType">
+		<sequence>
+			<element ref="tns:Validator" maxOccurs="1" minOccurs="0" />
+			<choice maxOccurs="unbounded" minOccurs="0">
+				<group ref="tns:IfElseIfGroup" maxOccurs="unbounded" minOccurs="0" />
+				<group ref="tns:TryCatchFinallyGroup" maxOccurs="unbounded" minOccurs="0" />
+				<element ref="tns:Log" />
+				<element ref="tns:For" />
+				<element ref="tns:Return" />
+				<element ref="tns:SetValue" />
+				<element ref="tns:Out" />
+				<element ref="tns:Call" />
+				<element ref="tns:Insert" />
+				<element ref="tns:Update" />
+				<element ref="tns:Delete" />
+				<element ref="tns:SelectRecordSet" />
+				<element ref="tns:SelectFeild" />
+				<element ref="tns:HttpClient" />
+				<element ref="tns:Bean" />
+				<element ref="tns:Invoke" />
+				<element ref="tns:SetRequest" />
+				<element ref="tns:SetSession" />
+				<element ref="tns:SetApplication" />
+				<element ref="tns:OutResponse" />
+				<element ref="tns:HadoopUtil" />
+				<element ref="tns:CommitTrans" />
+				<element ref="tns:RollbackTrans" />
+			</choice>
+			<element ref="tns:Throw" maxOccurs="1" minOccurs="0"></element>
+		</sequence>
+		<attribute name="DataSource" type="string" />
+		<attribute name="Name" type="string" use="required" />
+		<attribute name="CacheGroupId" type="string" />
+		<attribute name="Description" type="string" />
+	</complexType>
+
+	<complexType name="IfType">
+		<sequence>
+			<choice maxOccurs="unbounded" minOccurs="0">
+				<group ref="tns:IfElseIfGroup" maxOccurs="unbounded" minOccurs="0" />
+				<group ref="tns:TryCatchFinallyGroup" maxOccurs="unbounded" minOccurs="0" />
+				<element ref="tns:Log" />
+				<element ref="tns:For" />
+				<element ref="tns:Return" />
+				<element ref="tns:SetValue" />
+				<element ref="tns:Out" />
+				<element ref="tns:Call" />
+				<element ref="tns:Insert" />
+				<element ref="tns:Update" />
+				<element ref="tns:Delete" />
+				<element ref="tns:SelectRecordSet" />
+				<element ref="tns:SelectFeild" />
+				<element ref="tns:HttpClient" />
+				<element ref="tns:Bean" />
+				<element ref="tns:Invoke" />
+				<element ref="tns:SetRequest" />
+				<element ref="tns:SetSession" />
+				<element ref="tns:SetApplication" />
+				<element ref="tns:OutResponse" />
+				<element ref="tns:HadoopUtil" />
+				<element ref="tns:CommitTrans" />
+				<element ref="tns:RollbackTrans" />
+			</choice>
+			<element ref="tns:Throw" maxOccurs="1" minOccurs="0" />
+		</sequence>
+		<attribute name="Expression" type="string" use="required" />
+	</complexType>
+
+	<complexType name="ElseIfType">
+		<sequence>
+			<choice maxOccurs="unbounded" minOccurs="0">
+				<group ref="tns:IfElseIfGroup" maxOccurs="unbounded" minOccurs="0" />
+				<group ref="tns:TryCatchFinallyGroup" maxOccurs="unbounded" minOccurs="0" />
+				<element ref="tns:Log" />
+				<element ref="tns:For" />
+				<element ref="tns:Return" />
+				<element ref="tns:SetValue" />
+				<element ref="tns:Out" />
+				<element ref="tns:Call" />
+				<element ref="tns:Insert" />
+				<element ref="tns:Update" />
+				<element ref="tns:Delete" />
+				<element ref="tns:SelectRecordSet" />
+				<element ref="tns:SelectFeild" />
+				<element ref="tns:HttpClient" />
+				<element ref="tns:Bean" />
+				<element ref="tns:Invoke" />
+				<element ref="tns:SetRequest" />
+				<element ref="tns:SetSession" />
+				<element ref="tns:SetApplication" />
+				<element ref="tns:OutResponse" />
+				<element ref="tns:HadoopUtil" />
+				<element ref="tns:CommitTrans" />
+				<element ref="tns:RollbackTrans" />
+			</choice>
+			<element ref="tns:Throw" maxOccurs="1" minOccurs="0" />
+		</sequence>
+		<attribute name="Expression" type="string" use="required" />
+	</complexType>
+
+	<complexType name="ElseType">
+		<sequence>
+			<choice maxOccurs="unbounded" minOccurs="0">
+				<group ref="tns:IfElseIfGroup" maxOccurs="unbounded" minOccurs="0" />
+				<group ref="tns:TryCatchFinallyGroup" maxOccurs="unbounded" minOccurs="0" />
+				<element ref="tns:Log" />
+				<element ref="tns:For" />
+				<element ref="tns:Return" />
+				<element ref="tns:SetValue" />
+				<element ref="tns:Out" />
+				<element ref="tns:Call" />
+				<element ref="tns:Insert" />
+				<element ref="tns:Update" />
+				<element ref="tns:Delete" />
+				<element ref="tns:SelectRecordSet" />
+				<element ref="tns:SelectFeild" />
+				<element ref="tns:HttpClient" />
+				<element ref="tns:Bean" />
+				<element ref="tns:Invoke" />
+				<element ref="tns:SetRequest" />
+				<element ref="tns:SetSession" />
+				<element ref="tns:SetApplication" />
+				<element ref="tns:OutResponse" />
+				<element ref="tns:HadoopUtil" />
+				<element ref="tns:CommitTrans" />
+				<element ref="tns:RollbackTrans" />
+			</choice>
+			<element ref="tns:Throw" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ForType">
+		<sequence>
+			<choice maxOccurs="unbounded" minOccurs="0">
+				<group ref="tns:IfElseIfGroup" maxOccurs="unbounded" minOccurs="0" />
+				<group ref="tns:TryCatchFinallyGroup" maxOccurs="unbounded" minOccurs="0" />
+				<element ref="tns:Log" />
+				<element ref="tns:For" />
+				<element ref="tns:Return" />
+				<element ref="tns:SetValue" />
+				<element ref="tns:Out" />
+				<element ref="tns:Insert" />
+				<element ref="tns:Update" />
+				<element ref="tns:Delete" />
+				<element ref="tns:SelectRecordSet" />
+				<element ref="tns:SelectFeild" />
+				<element ref="tns:Call" />
+				<element ref="tns:HttpClient" />
+				<element ref="tns:Bean" />
+				<element ref="tns:Invoke" />
+				<element ref="tns:SetRequest" />
+				<element ref="tns:SetSession" />
+				<element ref="tns:SetApplication" />
+				<element ref="tns:OutResponse" />
+				<element ref="tns:HadoopUtil" />
+				<element ref="tns:CommitTrans" />
+				<element ref="tns:RollbackTrans" />
+			</choice>
+			<element ref="tns:Throw" maxOccurs="1" minOccurs="0" />
+		</sequence>
+		<attribute name="Collection" type="string" />
+		<attribute name="Item" type="string" />
+		<attribute name="Begin" type="string" />
+		<attribute name="End" type="string" />
+		<attribute name="Separator" type="string" />
+		<attribute name="Index" type="string" />
+	</complexType>
+
+	<complexType name="ValidatorType">
+		<sequence>
+			<element ref="tns:Field" maxOccurs="unbounded" minOccurs="0" />
+		</sequence>
+
+		<attribute name="Description" type="string" />
+	</complexType>
+
+	<complexType name="FieldType">
+		<attribute name="Name" type="string" use="required" />
+		<attribute name="Type" type="tns:FieldTypeType" default="string" />
+	</complexType>
+
+	<complexType name="ReturnType">
+		<sequence>
+			<element ref="tns:ReturnItem" maxOccurs="unbounded" minOccurs="0" />
+		</sequence>
+		<attribute name="Code" type="string" default="0" />
+		<attribute name="Info" type="string" default="ok" />
+		<attribute name="Text" type="string" default="ok" />
+	</complexType>
+
+	<complexType name="ReturnItemType">
+		<attribute name="Id" type="string" default="0" />
+		<attribute name="Value" type="string" default="ok" />
+	</complexType>
+
+	<complexType name="SetValueType">
+		<attribute name="Name" type="string" use="required" />
+		<attribute name="Value" type="string" use="required" />
+		<attribute name="Default" type="string" />
+	</complexType>
+
+	<complexType name="TryType">
+		<sequence>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<group ref="tns:IfElseIfGroup" maxOccurs="unbounded" minOccurs="0" />
+				<group ref="tns:TryCatchFinallyGroup" maxOccurs="unbounded" minOccurs="0" />
+				<element ref="tns:Log" />
+				<element ref="tns:For" />
+				<element ref="tns:Out" />
+				<element ref="tns:Return" />
+				<element ref="tns:SetValue" />
+				<element ref="tns:Insert" />
+				<element ref="tns:Update" />
+				<element ref="tns:Delete" />
+				<element ref="tns:SelectRecordSet" />
+				<element ref="tns:SelectFeild" />
+				<element ref="tns:Call" />
+				<element ref="tns:CommitTrans" />
+				<element ref="tns:RollbackTrans" />
+				<element ref="tns:HttpClient" />
+				<element ref="tns:Bean" />
+				<element ref="tns:Invoke" />
+				<element ref="tns:SetRequest" />
+				<element ref="tns:SetSession" />
+				<element ref="tns:SetApplication" />
+				<element ref="tns:OutResponse" />
+				<element ref="tns:HadoopUtil" />
+			</choice>
+			<element ref="tns:Throw" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="CatchType">
+		<sequence>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<group ref="tns:IfElseIfGroup" maxOccurs="unbounded" minOccurs="0" />
+				<group ref="tns:TryCatchFinallyGroup" maxOccurs="unbounded" minOccurs="0" />
+				<element ref="tns:Log" />
+				<element ref="tns:For" />
+				<element ref="tns:Out" />
+				<element ref="tns:Return" />
+				<element ref="tns:SetValue" />
+				<element ref="tns:Insert" />
+				<element ref="tns:Update" />
+				<element ref="tns:Delete" />
+				<element ref="tns:SelectRecordSet" />
+				<element ref="tns:SelectFeild" />
+				<element ref="tns:Call" />
+				<element ref="tns:RollbackTrans" />
+				<element ref="tns:CommitTrans" />
+				<element ref="tns:HttpClient" />
+				<element ref="tns:Bean" />
+				<element ref="tns:Invoke" />
+				<element ref="tns:SetRequest" />
+				<element ref="tns:SetSession" />
+				<element ref="tns:SetApplication" />
+				<element ref="tns:OutResponse" />
+				<element ref="tns:HadoopUtil" />
+			</choice>
+			<element ref="tns:Throw" maxOccurs="1" minOccurs="0" />
+		</sequence>
+		<attribute name="Type" type="tns:CatchTypeType" use="required"></attribute>
+		<attribute name="Name" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="FinallyType">
+		<sequence>
+			<choice minOccurs="0" maxOccurs="unbounded">
+				<group ref="tns:IfElseIfGroup" maxOccurs="unbounded" minOccurs="0" />
+				<group ref="tns:TryCatchFinallyGroup" maxOccurs="unbounded" minOccurs="0" />
+				<element ref="tns:Log" />
+				<element ref="tns:For" />
+				<element ref="tns:Out" />
+				<element ref="tns:Return" />
+				<element ref="tns:SetValue" />
+				<element ref="tns:Insert" />
+				<element ref="tns:Update" />
+				<element ref="tns:Delete" />
+				<element ref="tns:SelectRecordSet" />
+				<element ref="tns:SelectFeild" />
+				<element ref="tns:Call" />
+				<element ref="tns:CommitTrans" />
+				<element ref="tns:HttpClient" />
+				<element ref="tns:Bean" />
+				<element ref="tns:Invoke" />
+				<element ref="tns:SetRequest" />
+				<element ref="tns:SetSession" />
+				<element ref="tns:SetApplication" />
+				<element ref="tns:OutResponse" />
+				<element ref="tns:RollbackTrans" />
+				<element ref="tns:HadoopUtil" />
+			</choice>
+			<element ref="tns:Throw" maxOccurs="1" minOccurs="0" />
+		</sequence>
+	</complexType>
+
+	<complexType name="CallType">
+		<attribute name="ActionTransName" type="string" use="required" />
+		<attribute name="ServiceName" type="string" use="required" />
+	</complexType>
+
+	<complexType name="LogType">
+		<attribute name="Level" type="tns:LevelType" use="required"></attribute>
+		<attribute name="Text" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="OutType">
+		<attribute name="Value" type="string" use="required" />
+	</complexType>
+
+	<complexType name="ThrowType">
+		<attribute name="Type" type="tns:ThrowTypeType" use="required" />
+		<attribute name="Message" type="string" use="required" />
+	</complexType>
+
+	<simpleType name="LevelType">
+		<restriction base="string">
+			<enumeration value="info" />
+			<enumeration value="debug" />
+			<enumeration value="warn" />
+			<enumeration value="error" />
+			<enumeration value="fatal" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="ThrowTypeType">
+		<restriction base="string">
+			<enumeration value="RuntimeException" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="FieldTypeType">
+		<restriction base="string">
+			<enumeration value="string" />
+			<enumeration value="int" />
+			<enumeration value="float" />
+			<enumeration value="double" />
+			<enumeration value="long" />
+			<enumeration value="boolean" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="CatchTypeType">
+		<restriction base="string">
+			<enumeration value="Exception" />
+		</restriction>
+	</simpleType>
+
+	<group name="SQLIfElseGroup">
+		<sequence>
+			<element ref="tns:SQLIf" />
+			<element ref="tns:SQLElse" minOccurs="0" maxOccurs="1" />
+		</sequence>
+	</group>
+
+	<complexType name="SQLElementType">
+		<choice maxOccurs="unbounded" minOccurs="0">
+			<group ref="tns:SQLIfElseGroup"></group>
+			<element name="SQLFor" type="tns:SQLForType" />
+			<element ref="tns:OutputSQL" />
+		</choice>
+		<attribute name="DataSource" type="string" />
+	</complexType>
+
+	<complexType name="SelectType">
+		<choice maxOccurs="unbounded" minOccurs="0">
+			<group ref="tns:SQLIfElseGroup"></group>
+			<element name="SQLFor" type="tns:SQLForType" />
+			<element ref="tns:OutputSQL" />
+		</choice>
+		<attribute name="DataSource" type="string" />
+		<attribute name="OutputId" type="string" use="required" />
+		<attribute name="Cache" type="boolean" />
+	</complexType>
+
+	<complexType name="SQLIfType">
+		<choice maxOccurs="unbounded" minOccurs="0">
+			<group ref="tns:SQLIfElseGroup"></group>
+			<element name="SQLFor" type="tns:SQLForType" />
+			<element ref="tns:OutputSQL" />
+		</choice>
+		<attribute name="Expression" type="string" use="required" />
+	</complexType>
+
+	<complexType name="SQLElseType">
+		<choice maxOccurs="unbounded" minOccurs="0">
+			<group ref="tns:SQLIfElseGroup"></group>
+			<element name="SQLFor" type="tns:SQLForType" />
+			<element ref="tns:OutputSQL" />
+		</choice>
+		<attribute name="Expression" type="string" use="required" />
+	</complexType>
+
+	<complexType name="SQLForType">
+		<choice maxOccurs="unbounded" minOccurs="0">
+			<group ref="tns:SQLIfElseGroup"></group>
+			<element name="SQLFor" type="tns:SQLForType" />
+			<element ref="tns:OutputSQL" />
+		</choice>
+		<attribute name="Collection" type="string" />
+		<attribute name="Item" type="string" />
+		<attribute name="Begin" type="string" />
+		<attribute name="End" type="string" />
+		<attribute name="Separator" type="string" />
+		<attribute name="Index" type="string" />
+	</complexType>
+
+	<complexType name="HttpClientType">
+		<sequence>
+			<element ref="tns:Parameter" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+		<attribute name="HttpType" type="tns:HttpType" default="get"></attribute>
+		<attribute name="Url" type="string" use="required"></attribute>
+		<attribute name="OutputId" type="string" use="required"></attribute>
+	</complexType>
+
+	<simpleType name="HttpType">
+		<restriction base="string">
+			<enumeration value="get"></enumeration>
+			<enumeration value="post"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="SetServletType">
+		<attribute name="Name" type="string" use="required"></attribute>
+		<attribute name="Value" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="OutResponseType">
+		<sequence>
+			<element name="Header" type="tns:HeaderType" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+		<attribute name="ContentType" type="string"></attribute>
+		<attribute name="CharacterEncoding" type="string"></attribute>
+		<attribute name="Status" type="int"></attribute>
+		<attribute name="ContentLength" type="int"></attribute>
+		<attribute name="BufferSize" type="int"></attribute>
+		<attribute name="OutputId" type="string"></attribute>
+	</complexType>
+
+	<complexType name="HeaderType">
+		<attribute name="Name" type="string" use="required"></attribute>
+		<attribute name="Value" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="BeanType">
+		<sequence>
+			<element ref="tns:Constructor" minOccurs="0" maxOccurs="1"></element>
+			<element ref="tns:Property" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+		<attribute name="Name" type="string" use="required"></attribute>
+		<attribute name="ClassType" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="InvokeType">
+		<sequence>
+			<element name="MethodParameter" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attribute name="Parameter" type="string"></attribute>
+				</complexType>
+			</element>
+		</sequence>
+		<attribute name="Name" type="string"></attribute>
+		<attribute name="ClassType" type="string"></attribute>
+		<attribute name="Method" type="string"></attribute>
+		<attribute name="OutputId" type="string"></attribute>
+	</complexType>
+
+	<complexType name="PropertyType">
+		<attribute name="Name" type="string" use="required"></attribute>
+		<attribute name="Value" type="string" use="required"></attribute>
+	</complexType>
+
+	<complexType name="ConstructorType">
+		<sequence>
+			<element name="Param" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<attribute name="Value" type="string" use="required"></attribute>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="HadoopUtilType">
+		<sequence>
+			<element ref="tns:Parameter" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+		<attribute name="Name" type="string"></attribute>
+	</complexType>
+
+</schema>
