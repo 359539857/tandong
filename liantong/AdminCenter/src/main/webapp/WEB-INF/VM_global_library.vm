@@ -1,0 +1,3 @@
+
+##获取URL重写后的链接		
+#macro(rewriteURL $url)$UrlUtil.rewriteURL($response,$request,$url)#end

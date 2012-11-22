@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServicePlugin xmlns="http://www.w3school.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3school.com.cn ServicePlugin.xsd">
+
+	<Service Name="ApplicationService" Description="应用服务" CacheGroupId="cache0">
+
+		<Parameter Name="version" Value="123" />
+		<Parameter Name="author" Value="tandong" />
+
+		<Trans Name="addApplication" Description="添加应用" CacheGroupId="cache0">
+			<Validator>
+				<Field Name="sName" Type="string" />
+				<Field Name="userName" Type="string" />
+				<Field Name="password" Type="string" />
+				<Field Name="valid" Type="string" />
+			</Validator>
+			<Try>
+				<SelectRecordSet DataSource="localDataGroup.read" OutputId="userList2" Cache="true">
+					<OutputSQL>select * from tb_user limit 1,20</OutputSQL>
+				</SelectRecordSet>
+				<Insert DataSource="localDataGroup.write">
+					<OutputSQL>
+						insert into tb_user(sName,userName,password,valid) values(${sName},${userName},${password},'1')
+					</OutputSQL>
+				</Insert>
+			</Try>
+			<Catch Name="ex" Type="Exception">
+				<Log Level="error" Text="$ex" />
+				<RollbackTrans />
+			</Catch>
+			<Finally>
+				<CommitTrans />
+			</Finally>
+			<Return />
+		</Trans>
+	</Service>
+
+</ServicePlugin>

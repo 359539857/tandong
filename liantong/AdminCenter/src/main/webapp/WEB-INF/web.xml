@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name></display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>staticPath</param-name>
+		<param-value>http://localhost:8090/AdminCenter/static/</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextPath</param-name>
+		<param-value>http://localhost:8090/AdminCenter/</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>applicationType</param-name>
+		<param-value>COS</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>application_name</param-name>
+		<param-value>COSBusinessCenter</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>application_config</param-name>
+		<param-value>classpath:framework.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>WebAuthenticationFilter</filter-name>
+		<filter-class>com.liantong.web.filter.WebAuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>WebAuthenticationFilter</filter-name>
+		<url-pattern>/service.cto</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>cto.framework.web.listener.WebApplicationActionListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>WebApplicationActionServlet</servlet-name>
+		<servlet-class>cto.framework.web.servlet.WebApplicationActionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebApplicationActionServlet</servlet-name>
+		<url-pattern>/service.cto</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>VelocityViewServlet</servlet-name>
+		<servlet-class>org.apache.velocity.tools.view.VelocityViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VelocityViewServlet</servlet-name>
+		<url-pattern>*.vm</url-pattern>
+	</servlet-mapping>
+</web-app>

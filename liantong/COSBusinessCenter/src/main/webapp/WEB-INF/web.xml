@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name></display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>staticPath</param-name>
+		<param-value>http://localhost:8090/COSBusinessCenter/static</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextPath</param-name>
+		<param-value>http://localhost:8090/COSBusinessCenter</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>businessPath</param-name>
+		<param-value>http://localhost:8090/COSBusinessCenter/</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>application_name</param-name>
+		<param-value>COSBusinessCenter</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>cto.framework.web.listener.WebApplicationListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>WebApplicationServlet</servlet-name>
+		<servlet-class>cto.framework.web.servlet.WebApplicationServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>WebApplicationServlet</servlet-name>
+		<url-pattern>/service.cto</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<servlet-class>cto.framework.web.servlet.SystemServiceServlet</servlet-class>
+		<load-on-startup>9</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<url-pattern>*.service</url-pattern>
+	</servlet-mapping>
+</web-app>

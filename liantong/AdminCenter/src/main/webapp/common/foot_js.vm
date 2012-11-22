@@ -1,0 +1,19 @@
+<!-- common_js S-->
+<script type="text/javascript" src="${application.staticPath}js/jquery.min.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery-ui.custom.min.js"></script>
+
+<script type="text/javascript" src="${application.staticPath}js/excanvas.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.visualize.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.tablesorter.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.date_input.min.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.minicolors.min.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.wysiwyg.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.fancybox.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.tipsy.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.cookie.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.validation.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/jquery.validation-cn.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/md5.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/core-main.js"></script>
+<script type="text/javascript" src="${application.staticPath}js/common-main.js"></script>
+<!-- common_js E-->

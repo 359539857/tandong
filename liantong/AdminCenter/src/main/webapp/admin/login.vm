@@ -1,0 +1,114 @@
+<%@page contentType="text/html; charset=UTF-8"%>
+<%@ include file="../admin/include.jsp"%>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>登录</title>
+
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/responsive.css">
+		<link rel="stylesheet" href="css/visualize.css">
+		<link rel="stylesheet" href="css/date_input.css">
+		<link rel="stylesheet" href="css/jquery.minicolors.css">
+		<link rel="stylesheet" href="css/jquery.wysiwyg.css">
+		<link rel="stylesheet" href="css/jquery.fancybox.css">
+		<link rel="stylesheet" href="css/tipsy.css">
+		<link rel="stylesheet" href="css/jquery.validation.css">
+		
+		<!--[if lt IE 9]>
+		<link rel="stylesheet" href="css/ie.css">
+		<script src="js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	
+	<body class="loginpage">
+		<header>
+			<img style="float:left; margin:12px 20px 0px 0px;" src="images/<%=application.getInitParameter("domian") %>.jpg"/><h1><a href="#"><%=application.getInitParameter("domian") %> 后台管理系统</a></h1>
+		</header>
+		<!-- header ends -->
+		<section id="content" class="loginbox">
+			<div id="msgInfo" name="msgInfo" class="message info">
+				<p>
+					
+				</p>
+			<span title="Dismiss" class="close"></span>
+			</div>
+			<s:form method="post" action="action_login" namespace="/admin" id="loginform">
+				<p>
+					<label>用户名:</label><br />
+					<input name="username" id="username" type="text" class="validate[required,minSize[3],maxSize[8],custom[notSpecChar]] text-input text" />
+				</p>
+				<p>
+					<label>密码:</label><br />
+					<input name="password" id="password" type="password" class="validate[required,minSize[6],maxSize[12]] text-input text" />
+				</p>
+				<p>
+					<label>验证码:</label><br />
+					<input name="inCode" id="inCode" type="text" class="validate[required,minSize[4],maxSize[4]] text-input text vcode" value="" maxlength="4" />
+					<img id="vcode" src="rand.do" onclick="changeValidateCode(this)" title="看不清换一张"/><span id="statearea"></span>
+				</p>
+				<p class="formend">
+					<input type="button" class="submit" onclick="submitPerssionSet();" value="登&nbsp;录" />&nbsp;
+					<!--<input type="checkbox" class="checkbox" checked="checked" id="rmbuser" />
+					 <label for="rmbuser">记住我</label> -->
+				</p>
+			</s:form>
+		</section>
+		<!-- .loginbox ends -->
+
+		<!-- common_js S-->
+		<%@ include file="/common/foot_js.jsp"%>
+		<!-- common_js E-->
+	</body>
+	<span style="display:none;"><s:fielderror/></span>
+</html>
+<script>
+function changeValidateCode(obj) {  
+       var currentTime= new Date().getTime();  
+       obj.src = "rand.do?d=" + currentTime;  
+   }
+
+//根据帐号加载密码
+/**
+function loadPassword(_this){
+	var userName = $.cookie("userName");
+	if(userName == $.trim(_this.value)){
+		$("#password").val($.cookie("passWord"));
+	}
+}*/
+
+function submitPerssionSet(){
+	if($("#loginform").validationEngine("validate")){
+		$("#loginform").submit();
+		/*$.ajax({
+				type : "post",
+				url : "action_login.do",
+				cache: false,
+				data : {
+					username : $("#username").val(),
+					password : $("#password").val(),
+					inCode : $("#inCode").val()
+				},
+				success : function(data) {
+					window.location.href = "action_login.do";
+					//aPanel.hudMsg('success', '用户登录成功', 3000);
+					return true;
+				},
+				error : function() {
+					aPanel.hudMsg('error', '用户登录失败', 3000);
+					return false;
+				}
+			});*/
+	}
+}
+
+$(function(){
+	$("#loginform").validationEngine({autoHidePrompt:true, autoHideDelay:2000, binded:true});
+	var msg = $('.errorMessage').html();
+	if(msg != null){
+		document.getElementById("msgInfo").innerHTML="<font color='red'>"+msg+" </font>" ;
+		$('#content .message').hide().append('<span class="close" title="Dismiss"></span>').fadeIn('slow');
+	}
+});
+</script>

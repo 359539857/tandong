@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>web管理后台</title>
+		<!-- common_css -->
+		<link rel="stylesheet" href="${application.staticPath}css/style.css">
+		<link rel="stylesheet" href="${application.staticPath}css/responsive.css">
+		<link rel="stylesheet" href="${application.staticPath}css/visualize.css">
+		<link rel="stylesheet" href="${application.staticPath}css/date_input.css">
+		<link rel="stylesheet" href="${application.staticPath}css/jquery.minicolors.css">
+		<link rel="stylesheet" href="${application.staticPath}css/jquery.wysiwyg.css">
+		<link rel="stylesheet" href="${application.staticPath}css/jquery.fancybox.css">
+		<link rel="stylesheet" href="${application.staticPath}css/tipsy.css">
+		<link rel="stylesheet" href="${application.staticPath}css/ui-lightness/jquery-ui.custom.css">
+		<link rel="stylesheet" href="${application.staticPath}css/jquery.validation.css">
+		<!--[if lt IE 9]>
+			<link rel="stylesheet" href="${application.staticPath}css/ie.css">
+			<script src="${application.staticPath}js/html5shiv.js"></script>
+		<![endif]-->
+		<!-- common_css E-->
+	</head>
+	<body>
+	
+		<!-- header S -->
+		<header>
+			<img style="float:left; margin:12px 20px 0px 0px;" src="${application.staticPath}images/${application.applicationType}.jpg"/><h1><a href="${application.contextPath}">${application.applicationType}后台管理系统</a></h1>
+		</header>
+			<!-- #header ends -->
+		${application.staticPath}
+		##parse("${application.contextPath}/admin/left.vm")
+		
+		<section id="content" class="mainframe" style="height: auto;">
+		##	<iframe id="rightIframe" name="rightIframe" frameborder="0" marginheight='0' scrolling="auto;" width="100%" height="100%"  src="${application.contextPath}admin/index.vm" ></iframe>
+		</section>
+	
+		<div id="operatorSet" style="display:none;"></div>
+		
+		<!-- common_js S-->
+		###parse("${application.contextPath}common/foot_js.vm")
+		<!-- common_js E-->
+		
+	</body>
+</html>

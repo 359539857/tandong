@@ -1,0 +1,23 @@
+<%@page contentType="text/html; charset=UTF-8"%>
+<aside>
+	<ul id="nav">
+		<s:iterator value="myPermissionList" id="list">
+			<li><a href="#" class="collapse"><span><s:property value='%{#list.permissionList.size}' />
+				</span> <s:if test="1==#list.sort">
+						<strong><img src="images/nav/nav_<s:property value='%{#list.sort}'/>.png" alt="" /> <s:property value="%{#list.name}" />
+						</strong>
+					</s:if> <s:else>
+						<img src="images/nav/nav_<s:property value='%{#list.sort}'/>.png" alt="" />
+						<s:property value="%{#list.name}" />
+					</s:else> </a>
+				<ul>
+					<s:iterator value="%{#list.permissionList}" id="list2">
+						<li><a href="<s:property value='%{#list2.resource}'/>" target="rightIframe"><s:property value="%{#list2.name}" />
+						</a></li>
+					</s:iterator>
+				</ul></li>
+		</s:iterator>
+		<li><a href="action_loginOut.do"><img src="images/nav/delete.png" alt="" /> 退出系统 </a></li>
+	</ul>
+</aside>
+<!-- aside ends -->

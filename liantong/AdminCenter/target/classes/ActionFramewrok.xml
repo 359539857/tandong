@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionBusConfig xmlns="http://www.w3school.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3school.com.cn ActionFramewrok.xsd">
+
+	<ImportResource Path="local.properties" Description="导入本地资源文件 " />
+	<Parameter Name="load" Value="1" Description="定义全局参数" />
+	<Parameter Name="guid" Value="dfds.fdf" Description="定义全局参数" />
+
+	<HadoopServerGroup Id="hodoop0">
+		<HadoopServer Name="Slave" IP="127.0.0.1" Prot="53200" />
+	</HadoopServerGroup>
+
+	<ActionPluginConfig AutoScanPath="com.liantong.web.action" />
+
+	<ResultPath Path="/WEB-INF/pages" />
+</ActionBusConfig>

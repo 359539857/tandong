@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServicePlugin xmlns="http://www.w3school.com.cn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3school.com.cn ../../../ServicePlugin.xsd">
+
+	<Service Name="ApplicationService" Description="应用服务" CacheGroupId="">
+		<Parameter Name="version" Value="123" />
+		<Parameter Name="author" Value="tandong" />
+		
+		<Trans Name="getApplication" DataSource="localDataGroup.read" CacheGroupId="cache0">
+			<SelectRecordSet OutputId="appResultSet" Cache="true">
+				<OutputSQL>select ver.* from application as app,appVersion as ver where ver.appUID = app.id</OutputSQL>
+				<SQLIf Expression="$guid != null">
+					<OutputSQL>and ver.GUID = $guid</OutputSQL>
+				</SQLIf>
+				<SQLIf Expression="$name != null">
+					<OutputSQL>and app.name = $name</OutputSQL>
+				</SQLIf>
+				<SQLIf Expression="$categoryID != null">
+					<OutputSQL>and app.categoryID = $categoryID</OutputSQL>
+				</SQLIf>
+				<SQLIf Expression="$subCategoryID != null">
+					<OutputSQL>and app.subCategoryID = $subCategoryID</OutputSQL>
+				</SQLIf> 
+				<SQLIf Expression="$status != null">
+					<OutputSQL>and ver.status = $status</OutputSQL>
+				</SQLIf> 
+				<OutputSQL> limit 0,2500</OutputSQL>
+			</SelectRecordSet>
+			<Return>
+				<ReturnItem Id="appList" Value="$appResultSet"/>
+			</Return>
+		</Trans>
+
+		<Trans Name="addApplication" Description="添加应用">
+			<Validator>
+				<Field Name="guid" Type="string" />
+				<Field Name="name" Type="string" />
+				<Field Name="author" Type="string" />
+				<Field Name="appType" Type="int" />
+				<Field Name="categoryID" Type="long" />
+				<Field Name="subCategoryID" Type="long" />
+				<Field Name="appSource" Type="string" />
+			</Validator>
+			<Try>
+				<SelectFeild DataSource="localDataGroup.read" OutputId="nVerCount" Cache="true">
+					<OutputSQL>SELECT count(1) as nCount FROM appversion where guid = ${guid}</OutputSQL>
+				</SelectFeild>
+				<If Expression="$nVerCount >= 1">
+					<Return Code="-1" Info="Fail" Text="${guid} guid已经存在!" />
+				</If>
+				<Else>
+					<Insert DataSource="localDataGroup.write">
+						<OutputSQL>
+							insert into application(name,author,appType,userID,categoryID,subCategoryID,appSource)values(${name},${author},${appType},${userID},${categoryID},${subCategoryID},${appSource})
+						</OutputSQL>
+					</Insert>
+					<SelectFeild OutputId="nAppId" DataSource="localDataGroup.read">
+						<OutputSQL>
+							SELECT LAST_INSERT_ID();
+						</OutputSQL>
+					</SelectFeild>
+					<Insert DataSource="localDataGroup.write">
+						<OutputSQL>
+							insert into
+							appVersion(appUID,size,packageUrl,version,uploadDate,status,suportPlatform,GUID,platForm,apkPermitList,versionNum,appLogo,appVersionDescription,price)
+							values({nAppId},{size},{packageUrl},{version},{uploadDate},{status},{suportPlatform},{GUID},{platForm},{permissions},{versionNum},{appLogo},{appVersionDescription},{price})
+						</OutputSQL>
+					</Insert>
+					<SelectFeild OutputId="nVerId" DataSource="localDataGroup.read">
+						<OutputSQL>
+							SELECT LAST_INSERT_ID();
+						</OutputSQL>
+					</SelectFeild>
+				</Else>
+			</Try>
+			<Catch Name="ex" Type="Exception">
+				<Log Level="error" Text="$ex" />
+				<RollbackTrans />
+			</Catch>
+			<Finally>
+				<CommitTrans />
+			</Finally>
+			<Return>
+				<ReturnItem Id="result" Value="$userList2" />
+			</Return>
+		</Trans>
+	</Service>
+
+</ServicePlugin>

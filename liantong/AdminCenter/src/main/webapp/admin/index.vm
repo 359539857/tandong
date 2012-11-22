@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+         #parse("$tmplpath/style_css.vm")
+	</head>
+	<body class="mainbody">
+		<div id="content">
+			<div class="breadcrumb">
+				<a href="${application.contextPath}" target="_top">${application.applicationType} 后台管理系统</a> &raquo; 系统信息
+			</div>
+			<div class="textbox half ">
+				<h2>系统信息</h2>
+				<div class="textbox_content">
+					<p>${application.applicationType} 后台管理系统</p>
+				</div>
+			</div>
+		</div>
+		<!-- common_js S-->
+		<!-- common_js E-->
+	</body>
+</html>
+
