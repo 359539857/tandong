@@ -1,0 +1,16 @@
+#Tue Nov 20 18:30:07 CST 2012
+cto.framework.web.action.schema.HadoopGroupType=cto.framework.web.action.schema.descriptors.HadoopGroupTypeDescriptor
+cto.framework.web.action.schema.HadoopServerType=cto.framework.web.action.schema.descriptors.HadoopServerTypeDescriptor
+cto.framework.web.action.schema.ActionPluginConfig=cto.framework.web.action.schema.descriptors.ActionPluginConfigDescriptor
+cto.framework.web.action.schema.Parameter=cto.framework.web.action.schema.descriptors.ParameterDescriptor
+cto.framework.web.action.schema.ResultPath=cto.framework.web.action.schema.descriptors.ResultPathDescriptor
+cto.framework.web.action.schema.ActionBusConfig=cto.framework.web.action.schema.descriptors.ActionBusConfigDescriptor
+cto.framework.web.action.schema.ActionPluginConfigType=cto.framework.web.action.schema.descriptors.ActionPluginConfigTypeDescriptor
+cto.framework.web.action.schema.PluginXMLResource=cto.framework.web.action.schema.descriptors.PluginXMLResourceDescriptor
+cto.framework.web.action.schema.HadoopServerGroup=cto.framework.web.action.schema.descriptors.HadoopServerGroupDescriptor
+cto.framework.web.action.schema.ImportResource=cto.framework.web.action.schema.descriptors.ImportResourceDescriptor
+cto.framework.web.action.schema.ParameterType=cto.framework.web.action.schema.descriptors.ParameterTypeDescriptor
+cto.framework.web.action.schema.HadoopServer=cto.framework.web.action.schema.descriptors.HadoopServerDescriptor
+cto.framework.web.action.schema.ActionBusConfigType=cto.framework.web.action.schema.descriptors.ActionBusConfigTypeDescriptor
+cto.framework.web.action.schema.ImportResourceType=cto.framework.web.action.schema.descriptors.ImportResourceTypeDescriptor
+cto.framework.web.action.schema.ResultPathType=cto.framework.web.action.schema.descriptors.ResultPathTypeDescriptor

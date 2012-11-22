@@ -1,0 +1,6 @@
+#Wed Nov 21 15:41:30 CST 2012
+cto.framework.service.plugin.schema.types.FieldTypeType=cto.framework.service.plugin.schema.types.descriptors.FieldTypeTypeDescriptor
+cto.framework.service.plugin.schema.types.ThrowTypeType=cto.framework.service.plugin.schema.types.descriptors.ThrowTypeTypeDescriptor
+cto.framework.service.plugin.schema.types.LevelType=cto.framework.service.plugin.schema.types.descriptors.LevelTypeDescriptor
+cto.framework.service.plugin.schema.types.HttpType=cto.framework.service.plugin.schema.types.descriptors.HttpTypeDescriptor
+cto.framework.service.plugin.schema.types.CatchTypeType=cto.framework.service.plugin.schema.types.descriptors.CatchTypeTypeDescriptor

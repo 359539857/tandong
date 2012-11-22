@@ -1,0 +1,6 @@
+#Tue Nov 20 18:29:05 CST 2012
+cto.framework.web.action.plugin.schema.types.CatchTypeType=cto.framework.web.action.plugin.schema.types.descriptors.CatchTypeTypeDescriptor
+cto.framework.web.action.plugin.schema.types.HttpType=cto.framework.web.action.plugin.schema.types.descriptors.HttpTypeDescriptor
+cto.framework.web.action.plugin.schema.types.FieldTypeType=cto.framework.web.action.plugin.schema.types.descriptors.FieldTypeTypeDescriptor
+cto.framework.web.action.plugin.schema.types.LevelType=cto.framework.web.action.plugin.schema.types.descriptors.LevelTypeDescriptor
+cto.framework.web.action.plugin.schema.types.ThrowTypeType=cto.framework.web.action.plugin.schema.types.descriptors.ThrowTypeTypeDescriptor

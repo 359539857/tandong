@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.w3school.com.cn" xmlns:tns="http://www.w3school.com.cn"
+	elementFormDefault="qualified">
+
+	<element name="ServiceBusConfig" type="tns:ServiceBusConfigType"></element>
+	<element name="Parameter" type="tns:ParameterType"></element>
+	<element name="DataSourceGroup" type="tns:DataSourceGroupType"></element>
+	<element name="Property" type="tns:PropertyType"></element>
+	<element name="DataSource" type="tns:DataSourceType"></element>
+	<element name="ServicePluginConfig" type="tns:ServicePluginConfigType"></element>
+	<element name="ImportResource" type="tns:ImportResourceType"></element>
+	<element name="SingleDataSource" type="tns:DataSourceType"></element>
+	<element name="ReadWriteDataSource" type="tns:ReadWriteDataSourceType"></element>
+
+	<element name="MemCacheServerGroup" type="tns:MemCacheServerGroupType"></element>
+	<element name="CacheServer" type="tns:CacheServerType"></element>
+	<element name="Server" type="tns:ServerType"></element>
+
+	<element name="HadoopServerGroup" type="tns:HadoopGroupType"></element>
+	<element name="HadoopServer" type="tns:HadoopServerType"></element>
+
+	<group name="SystemDataSourceGroup">
+		<choice>
+			<element ref="tns:DataSourceGroup" maxOccurs="unbounded" minOccurs="0"></element>
+			<element ref="tns:SingleDataSource" maxOccurs="1" minOccurs="0"></element>
+			<element ref="tns:ReadWriteDataSource" maxOccurs="1" minOccurs="0"></element>
+		</choice>
+	</group>
+
+	<complexType name="ServiceBusConfigType">
+		<sequence>
+			<element ref="tns:ImportResource" maxOccurs="unbounded" minOccurs="0"></element>
+			<element ref="tns:Parameter" maxOccurs="unbounded" minOccurs="0"></element>
+			<group ref="tns:SystemDataSourceGroup"></group>
+			<element ref="tns:MemCacheServerGroup" maxOccurs="unbounded" minOccurs="0"></element>
+			<element ref="tns:HadoopServerGroup" maxOccurs="unbounded" minOccurs="0" />
+			<element ref="tns:ServicePluginConfig" maxOccurs="1" minOccurs="0"></element>
+		</sequence>
+		<attribute name="DefaultUseCacheGroup" type="string"></attribute>
+		<attribute name="DefaultUseHadoopGroup" type="string"></attribute>
+		<attribute name="ServiceListenerIntervalTime" type="long"></attribute>
+	</complexType>
+
+	<complexType name="ParameterType">
+		<attribute name="Name" type="string" use="required"></attribute>
+		<attribute name="Value" type="string" use="required"></attribute>
+		<attribute name="Description" type="string"></attribute>
+	</complexType>
+
+	<complexType name="DataSourceGroupType">
+		<sequence>
+			<element ref="tns:DataSource" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+		<attribute name="Id" type="string" use="required"></attribute>
+		<attribute name="Description" type="string"></attribute>
+
+	</complexType>
+
+	<complexType name="DataSourceType">
+		<sequence>
+			<element name="Property" type="tns:PropertyType" maxOccurs="unbounded" minOccurs="1" />
+		</sequence>
+		<attribute name="PoolClass" type="tns:PoolClassType" use="required"></attribute>
+		<attribute name="Id" type="string" use="required"></attribute>
+		<attribute name="Description" type="string"></attribute>
+	</complexType>
+
+	<complexType name="PropertyType">
+		<attribute name="Name" type="string" use="required"></attribute>
+		<attribute name="Value" type="string" use="required"></attribute>
+		<attribute name="Description" type="string"></attribute>
+	</complexType>
+
+	<simpleType name="PoolClassType">
+		<restriction base="string">
+			<enumeration value="com.mchange.v2.c3p0.ComboPooledDataSource"></enumeration>
+			<enumeration value="org.apache.commons.dbcp.BasicDataSource"></enumeration>
+			<enumeration value="org.logicalcobwebs.proxool.ProxoolDataSource"></enumeration>
+			<enumeration value="com.jolbox.bonecp.BoneCPDataSource"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<complexType name="ServicePluginConfigType">
+		<sequence>
+			<element name="PluginXMLResource" type="tns:PluginXMLResourceType" maxOccurs="unbounded" minOccurs="0"></element>
+		</sequence>
+		<attribute name="AutoScanPath" type="string"></attribute>
+	</complexType>
+
+	<complexType name="ImportResourceType">
+		<attribute name="Path" type="string"></attribute>
+		<attribute name="Description" type="string"></attribute>
+	</complexType>
+
+	<complexType name="PluginXMLResourceType">
+		<attribute name="Path" type="string"></attribute>
+	</complexType>
+
+	<complexType name="ReadWriteDataSourceType">
+		<sequence>
+			<element ref="tns:DataSource" maxOccurs="2" minOccurs="2"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="MemCacheServerGroupType">
+		<sequence>
+			<element ref="tns:CacheServer" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+		<attribute name="Id" type="string"></attribute>
+	</complexType>
+
+	<complexType name="CacheServerType">
+		<sequence>
+			<element ref="tns:Server" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+		<attribute name="Id" type="string"></attribute>
+		<attribute name="MaxIdleTime" type="int"></attribute>
+		<attribute name="MinConnCount" type="int"></attribute>
+		<attribute name="MaxConnCount" type="int"></attribute>
+		<attribute name="InitConnCount" type="int"></attribute>
+	</complexType>
+
+	<complexType name="ServerType">
+		<attribute name="Port" type="int"></attribute>
+		<attribute name="IP" type="string"></attribute>
+	</complexType>
+
+	<complexType name="HadoopServerType">
+		<attribute name="Name" type="string"></attribute>
+		<attribute name="IP" type="string"></attribute>
+		<attribute name="Prot" type="string"></attribute>
+	</complexType>
+
+	<complexType name="HadoopGroupType">
+		<sequence>
+			<element ref="tns:HadoopServer" minOccurs="0" maxOccurs="unbounded"></element>
+		</sequence>
+		<attribute name="Id" type="string"></attribute>
+	</complexType>
+</schema>
